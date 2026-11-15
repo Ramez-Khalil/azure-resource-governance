@@ -1,0 +1,5 @@
+Resources
+| where subscriptionId == 'YOUR_SUBSCRIPTION_ID'
+| where resourceGroup =~ 'rg-identity-lab'
+| summarize ResourceCount=count() by type
+| order by type asc
