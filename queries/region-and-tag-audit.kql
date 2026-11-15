@@ -1,0 +1,8 @@
+Resources
+| where subscriptionId == 'YOUR_SUBSCRIPTION_ID'
+| where resourceGroup =~ 'rg-identity-lab'
+| extend RegionCheck = iff(location in~ ('westus3','belgiumcentral','canadacentral','northcentralus','westus'), 'Allowed list match', 'Review')
+| extend PurposeTag = tostring(tags.Purpose)
+| extend TagCheck = iff(isempty(PurposeTag), 'Missing Purpose tag', 'Present')
+| project name, type, location, RegionCheck, TagCheck, PurposeTag
+| order by name asc
